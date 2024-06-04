@@ -22,3 +22,4 @@ class APIerror extends Error
         }
     }
 }
+export default APIerror

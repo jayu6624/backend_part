@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { jwt } from "jsonwebtoken";
+import  jwt  from "jsonwebtoken";
 import bcrypt from "bcrypt";
 const userSchema = mongoose.Schema(
   {
@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema(
       lowercase: true,
       trim: true,
     },
-    avtar: {
+    avatar: {
       type: String,
       require: true,
     },
@@ -50,7 +50,7 @@ userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
   }
-  this.password = bcrypt.hash(thispassword, 8);
+  this.password = await bcrypt.hash(this.password, 8);
   next();
 });
 
@@ -78,4 +78,4 @@ userSchema.methods.generateRefreshToken = function () {
       })
 };
 
-export const usermodel = mongoose.model("usermodel", userSchema);
+export const User = mongoose.model("usermodel", userSchema);
