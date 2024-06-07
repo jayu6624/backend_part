@@ -9,7 +9,19 @@ cloudinary.config({
   api_key: process.env.CLOUINARY_CLOUD_API_KEY,
   api_secret: process.env.CLOUINARY_CLOUD_API_SECRET,
 });
+const deletefile = async (localpath) => {
+  if (!localpath) return null;
 
+  try {
+    fs.unlinkSync(localpath);
+
+    if (fs.existsSync(localpath)) {
+      console.error("file is not deleted in the file");
+    }
+  } catch (error) {
+    throw ApiError(400, "we could not delete the file in catch block");
+  }
+};
 const uploadfile = async (localpath) => {
   if (!localpath) return null;
 
@@ -31,4 +43,4 @@ const uploadfile = async (localpath) => {
   }
 };
 
-export { uploadfile };
+export { uploadfile,deletefile };
